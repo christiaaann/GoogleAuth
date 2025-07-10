@@ -7,9 +7,9 @@ import logo from '../assets/react.svg'
 
 function App() {
    const navigate = useNavigate()
+
     useEffect(() => {
-    const checkRedirectLogin = async () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      const checkRedirectLogin = async () => {
       if (isLoggedIn === "true") {
         navigate("/Home", { replace: true });
         return;
@@ -17,7 +17,7 @@ function App() {
 
       try {
         const result = await getRedirectResult(auth);
-        if (result) {
+       if (result) {
           const user = result.user;
           localStorage.setItem("isLoggedIn", "true");
           console.log("Redirect login:", user.displayName);

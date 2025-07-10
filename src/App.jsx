@@ -1,6 +1,6 @@
 import Login from './pages/Login'
 import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
+import Home from '../src/pages/Home'
 
 function App() {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
