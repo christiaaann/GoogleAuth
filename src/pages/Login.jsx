@@ -7,26 +7,29 @@ import logo from '../assets/react.svg'
 
 function App() {
    const navigate = useNavigate()
-   
     useEffect(() => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn')
-    if (isLoggedIn === 'true') {
-      navigate('/Home', { replace: true }) // Prevent back
-    }
-  }, [])
+    const checkRedirectLogin = async () => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+      if (isLoggedIn === "true") {
+        navigate("/Home", { replace: true });
+        return;
+      }
 
-  getRedirectResult(auth)
-  .then((result) =>{
-    if (result) {
-      const user = result.user;
-      alert(`Logged in as ${user.displayName}`)
-      localStorage.setItem('isLoggedIn', 'true')
-      navigate('/Home', {replace: true}) 
-    }
-  })
-  .catch((error) => {
-   console.error("Redirect",error)
-  });
+      try {
+        const result = await getRedirectResult(auth);
+        if (result) {
+          const user = result.user;
+          localStorage.setItem("isLoggedIn", "true");
+          console.log("Redirect login:", user.displayName);
+          navigate("/Home", { replace: true });
+        }
+      } catch (error) {
+        console.error("Redirect login failed:", error);
+      }
+    };
+
+    checkRedirectLogin();
+  }, [navigate]);
 
    const isMobile = () => /iPhone|iPad|Android/i.test(navigator.userAgent);
    const handleGoogleLogin = async () => {
