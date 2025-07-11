@@ -15,11 +15,9 @@ function Home() {
    .then (() => {
    alert('Logout Successful');
     
-   const user = result.user;
    localStorage.removeItem('isLoggedIn');
    navigate('/', {replace: true});
    
-   localStorage.setItem ("displayName",user.displayName)
    })
    .catch((error) =>{
    });
