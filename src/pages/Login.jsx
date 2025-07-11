@@ -10,7 +10,6 @@ function App() {
 
     useEffect(() => {
       const checkRedirectLogin = async () => {
-      const isLoggedIn = localStorage.getItem("isLoggedIn");
 
       if (isLoggedIn === "true") {
         navigate("/Home", { replace: true });
@@ -42,12 +41,12 @@ function App() {
       } else {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
-        alert(`Logged in as ${user.displayName}`)
-        localStorage.setItem('isLoggedIn', 'true')
-        navigate('/Home', {replace: true}) 
+        alert(`Logged in as ${user.displayName}`);
+        localStorage.setItem('isLoggedIn', 'true');
+        navigate('/Home', {replace: true}); 
       }
     } catch(error){
-         console.error("Login in Failed")
+         console.error("Login in Failed");
     }
   }
   return (
