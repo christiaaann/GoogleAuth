@@ -11,7 +11,7 @@ function App() {
     useEffect(() => {
       const checkRedirectLogin = async () => {
       const isLoggedIn = localStorage.getItem("isLoggedIn");
-      setPersistence (auth. browserLocalPersistence)
+      setPersistence (auth, browserLocalPersistence)
       if (isLoggedIn === "true") {
         navigate("/Home", { replace: true });
         return;
