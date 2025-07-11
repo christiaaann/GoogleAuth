@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { signInWithPopup,signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { signInWithPopup,signInWithRedirect, getRedirectResult, browserLocalPersistence, setPersistence } from 'firebase/auth';
 import { auth, provider} from '../firebase'
 import { replace, useNavigate } from 'react-router-dom';
 import logo from '../assets/google.svg'
@@ -11,7 +11,7 @@ function App() {
     useEffect(() => {
       const checkRedirectLogin = async () => {
       const isLoggedIn = localStorage.getItem("isLoggedIn");
-
+      setPersistence (auth. browserLocalPersistence)
       if (isLoggedIn === "true") {
         navigate("/Home", { replace: true });
         return;
@@ -34,13 +34,11 @@ function App() {
   }, [navigate]);
 
    const isMobile = () => /iPhone|iPad|Android/i.test(navigator.userAgent);
-
+   
    const handleGoogleLogin = async () => {
     try{
       if(isMobile()) {
        await signInWithRedirect(auth, provider);
-        localStorage.setItem("isLoggedIn", "true");
-        navigate("/Home", { replace: true });
       } else {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;

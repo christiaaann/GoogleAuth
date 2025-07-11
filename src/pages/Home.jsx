@@ -3,18 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../firebase";
 import { useState } from "react";
 
+
+
 function Home() {
   const [modal, setshowmodal] = useState(false);
    const navigate = useNavigate();
-
+ 
+  
    const handleLogout = () => {
    signOut(auth)
    .then (() => {
    alert('Logout Successful');
-
+    
+   const user = result.user;
    localStorage.removeItem('isLoggedIn');
    navigate('/', {replace: true});
    
+   localStorage.setItem ("displayName",user.displayName)
    })
    .catch((error) =>{
    });
@@ -23,6 +28,7 @@ function Home() {
    <>
    {!modal && (
    <div className="bg-green-600 mt-24 max-w-96 p-64 mx-auto rounded">
+   <h1 className="text-white  text-lg relative bottom-52 right-12 font-bold">Welcome: {}</h1>
    <button onClick={() => setshowmodal(true)} className="hover:bg-orange-400 hover:text-white relative top-52 right-10 bg-gray-300 px-6 py-2 rounded-lg font-bold ">Logout</button>
    </div>
    )}

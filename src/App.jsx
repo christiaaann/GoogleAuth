@@ -2,6 +2,7 @@ import Login from './pages/Login'
 import { Route, Routes } from 'react-router-dom';
 import Home from '../src/pages/Home'
 
+
 const ProtectedRoute = ({ children }) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   return isLoggedIn ? children : <Navigate to="/" replace />;
