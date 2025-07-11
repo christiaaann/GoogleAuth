@@ -49,10 +49,10 @@ function App() {
   }
   return (
     <>
-     <div className='min-h-screen bg-black'>
-       <button onClick={handleGoogleLogin} className='flex items-center gap-2 border border-gray-200 rounded px-4 py-4 relative top-96 bg-white hover:bg-gray-100 mx-auto'>
+     <div className='min-h-screen bg-black flex justify-center '>
+       <button onClick={handleGoogleLogin} className=" fixed bottom-96  group  inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-neutral-950 px-6 font-medium text-neutral-200"><div class="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]"><div class="relative h-full w-8 bg-white/20"></div></div>
         <img className='w-5 h-5' src= {logo} alt="" />
-        <span className='text-sm text-gray-700'>Continue with Google</span>
+        <span className='text-sm  text-white'>Continue with Google</span>
        </button>
      </div>
     </>
