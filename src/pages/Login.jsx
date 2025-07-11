@@ -10,6 +10,8 @@ function App() {
 
     useEffect(() => {
       const checkRedirectLogin = async () => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn");
+
       if (isLoggedIn === "true") {
         navigate("/Home", { replace: true });
         return;
@@ -32,10 +34,11 @@ function App() {
   }, [navigate]);
 
    const isMobile = () => /iPhone|iPad|Android/i.test(navigator.userAgent);
+
    const handleGoogleLogin = async () => {
     try{
       if(isMobile()) {
-        signInWithRedirect(auth, provider);
+       await signInWithRedirect(auth, provider);
       } else {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
