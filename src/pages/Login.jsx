@@ -9,24 +9,30 @@ function App() {
    const navigate = useNavigate()
 
   useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      localStorage.setItem("isLoggedIn", "true");
-      navigate("/Home", { replace: true });
-    } else {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result) {
-          localStorage.setItem("isLoggedIn", "true");
-          navigate("/Home", { replace: true });
-        }
-      } catch (error) {
-        console.error("Redirect login failed:", error);
+  const checkRedirectLogin = async () => {
+    try {
+      const result = await getRedirectResult(auth);
+      if (result && result.user) {
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/Home", { replace: true });
+        return;
       }
+    } catch (error) {
+      console.error("Redirect login failed:", error);
     }
-  });
 
-  return () => unsubscribe();
+    // ✅ Fallback: detect if already logged in
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        localStorage.setItem("isLoggedIn", "true");
+        navigate("/Home", { replace: true });
+      }
+    });
+
+    return () => unsubscribe(); // cleanup
+  };
+
+  checkRedirectLogin();
 }, [navigate]);
 
    const isMobile = () => /iPhone|iPad|Android/i.test(navigator.userAgent);
